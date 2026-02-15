@@ -115,7 +115,7 @@ def main():
     if os.path.exists(persistent_directory):
         print("✅ Vector store already exists. No need to re-process documents.")
 
-        embedding_model = OpenAIEmbeddings(model=EMBEDDING_MODEL_NAME)
+        embedding_model = HuggingFaceEmbeddings(model=EMBEDDING_MODEL_NAME)
         vectorstore = Chroma(
             persist_directory=persistent_directory,
             embedding_function=embedding_model,
