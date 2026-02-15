@@ -4,7 +4,7 @@
 
 ## Ingestion Pipeline with Functions (`1_1_ingestion_pipeline.py`)
 
-This is an improved version of the ingestion pipeline with modular functions and smart caching. It performs the following steps:
+Loads text documents from the `docs/` directory, splits them into chunks, converts them to vector embeddings, and stores them in a Chroma vector database for semantic search.
 
 1.  **Check for Existing Vector Store**:
     - **Action**: Before processing, checks if the vector database already exists in `db/chroma_db`. If it exists, loads it directly without re-processing documents to save time.
@@ -27,7 +27,7 @@ This is an improved version of the ingestion pipeline with modular functions and
 
 ## Test Retrieval Pipeline (`1_2_test_retrieval_pipeline.py`)
 
-This script tests the retrieval functionality by querying the vector database and displaying relevant documents. It performs the following steps:
+Queries the vector database with test questions and displays the most relevant document chunks retrieved.
 
 1.  **Load Embedding Model and Connect to Vector Database**:
     - **Library**: `langchain_huggingface`, `langchain_chroma`
@@ -35,18 +35,18 @@ This script tests the retrieval functionality by querying the vector database an
 
 2.  **Configure Retriever for Top-K Search**:
     - **Library**: `langchain_chroma`
-    - **Action**: Sets up the `Chroma` retriever to return the top $k$ (e.g., 5) most relevant document chunks based on semantic similarity.
+    - **Action**: Configures the retriever to return the top $k$ (e.g., 5) most similar documents.
 
 3.  **Retrieve Relevant Context for Query**:
     - **Library**: `langchain_chroma`
-    - **Action**: Searches the vector database with a natural language query and retrieves the most semantically similar document chunks.
+    - **Action**: Searches the database with a question and retrieves the most similar document chunks.
 
 4.  **Display Retrieved Document Chunks**:
-    - **Action**: Prints the user query and the content of the retrieved documents to verify the retrieval quality. Includes sample synthetic questions for testing.
+    - **Action**: Prints the query and retrieved documents to check retrieval quality.
 
-## RAG Answer Generation (`2_1_answer_generation.py`)
+## RAG Answer Generation (`2_answer_generation.py`)
 
-This script demonstrates the complete RAG workflow: retrieval + answer generation using a local LLM. It performs the following steps:
+Retrieves relevant document chunks from the vector database and uses a local LLM (via Ollama) to generate answers based on those documents.
 
 1.  **Load Embedding Model and Connect to Vector Database**:
     - **Library**: `langchain_huggingface`, `langchain_chroma`
@@ -54,18 +54,18 @@ This script demonstrates the complete RAG workflow: retrieval + answer generatio
 
 2.  **Configure Retriever for Top-K Search**:
     - **Library**: `langchain_chroma`
-    - **Action**: Sets up the `Chroma` retriever to return the top $k$ (e.g., 5) most relevant document chunks based on semantic similarity.
+    - **Action**: Configures the retriever to return the top $k$ (e.g., 5) most similar documents.
 
 3.  **Retrieve Relevant Context for Query**:
     - **Library**: `langchain_chroma`
-    - **Action**: Searches the vector database with a natural language query and retrieves the most semantically similar document chunks.
+    - **Action**: Searches the database with a question and retrieves the most similar document chunks.
 
 4.  **Construct Prompt with Retrieved Context**:
-    - **Action**: Combines the user query with the retrieved document chunks into a structured prompt that instructs the LLM to answer based only on the provided context.
+    - **Action**: Combines the user query with the retrieved document chunks into a prompt that tells the LLM to answer using only the provided documents.
 
 5.  **Generate Answer Using Local LLM**:
     - **Library**: `langchain_ollama`
-    - **Action**: Uses `ChatOllama` with configurable parameters (temperature, context window, GPU/CPU settings) to generate a factual answer grounded in the retrieved documents.
+    - **Action**: Sends the prompt to `ChatOllama` to generate an answer based on the retrieved documents.
 
 6.  **Display Query, Context, and Generated Answer**:
-    - **Action**: Prints the user query, retrieved document chunks (context), and the final LLM-generated answer to demonstrate the complete RAG pipeline.
+    - **Action**: Prints the user query, retrieved documents, and the LLM's final answer.
