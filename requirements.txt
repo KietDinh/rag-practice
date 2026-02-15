@@ -89,7 +89,7 @@ langchain-ollama==1.0.1
 langchain-openai==0.3.32
 langchain-text-splitters==1.1.0
 langdetect==1.0.9
-langsmith==0.4.16
+langsmith==0.6.3
 lxml==6.0.1
 markdown==3.8.2
 markdown-it-py==4.0.0
