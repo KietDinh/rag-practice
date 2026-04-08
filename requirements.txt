@@ -203,7 +203,7 @@ torchvision==0.23.0
 tornado==6.5.2
 tqdm==4.67.1
 traitlets==5.14.3
-transformers==4.56.0
+transformers==5.0.0rc3
 typer==0.16.1
 types-pyyaml==6.0.12.20250822
 types-requests==2.32.4.20250809
